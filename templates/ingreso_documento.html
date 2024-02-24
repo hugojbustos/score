@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Ingreso de Documento - Validación</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="documento">Documento:</label>
+                <input type="text" class="form-control" id="documento" name="documento" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Validar</button>
+        </form>
+    </div>
+{% endblock %}
+

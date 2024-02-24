@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2 class="mb-3">Solicitudes</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Género</th>
+                    <th>Monto Solicitado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for registro in registros %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                            <td>{{ registro.dni }}</td>
+                            <td>{{ registro.nombre }}</td>
+                            <td>{{ registro.apellido }}</td>
+                            <td>{{ registro.email }}</td>
+                            <td>{{ registro.genero }}</td>
+                            <td>{{ registro.monto_solicitado }}</td>
+                        <td>
+                            <a href="{% url 'editar' registro.id %}" class="btn btn-primary btn-sm">Editar</a>
+                            <a href="{% url 'eliminar' registro.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
