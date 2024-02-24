@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
@@ -7,8 +6,10 @@ import requests
 from django.contrib.auth.decorators import login_required
 from .models import Usuario
 
+
 def home(request):
     return render(request, 'home.html')
+
 
 def validar_documento(request):
     if request.method == 'POST':
@@ -27,10 +28,12 @@ def validar_documento(request):
 
     return render(request, 'ingreso_documento.html')
 
+
 def cargar_datos(request, dni_validado):
     form = UsuarioForm(initial={'dni': dni_validado})
     return render(request, 'ingreso_datos.html',
                   {'form': form, 'dni_validado': dni_validado})
+
 
 def guardar_datos(request):
     if request.method == 'POST':
@@ -44,10 +47,12 @@ def guardar_datos(request):
     else:
         return HttpResponse("Error: se esperaba una solicitud POST.")
 
+
 @login_required
 def solicitudes(request):
     registros = Usuario.objects.all()
     return render(request, 'solicitudes.html', {'registros': registros})
+
 
 def editar(request, pk):
     usuario = get_object_or_404(Usuario, pk=pk)
@@ -60,7 +65,6 @@ def editar(request, pk):
         form = UsuarioForm(instance=usuario)
     return render(request, 'editar.html', {'form': form})
 
-from django.shortcuts import get_object_or_404, redirect
 
 def eliminar(request, pk):
     registro = get_object_or_404(Usuario, pk=pk)
@@ -68,5 +72,3 @@ def eliminar(request, pk):
         registro.delete()
         return redirect('solicitudes')
     return render(request, 'eliminar.html', {'registro': registro})
-
-
